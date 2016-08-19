@@ -4,7 +4,7 @@ import org.opencv.core.*;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
-
+import org.opencv.video.Video;
 import org.opencv.core.*;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
@@ -43,78 +43,7 @@ public class Open_CV {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		
-		
-		//boolean isOpen = openVideo();
-		//System.out.println("Is open: " + isOpen);
-		
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
-		// Load the video file into the capture
-		VideoCapture cap = new VideoCapture("Vid.mp4");
-
-	    double count = cap.get(CV_CAP_PROP_FRAME_COUNT); //get the frame count
-	    
-	    ArrayList<Mat> list = new ArrayList<>();
-	    Mat frame = new Mat();
-	   
-	    for(int actualFrame = 0; actualFrame < count; actualFrame++){
-	    	cap.read(frame);
-	        if (frame.empty()) 
-	        	break;
-	        list.add(frame);
-	     }
-	    
-	    System.out.println("Amount of frames" + list.size());	
+		Video_Processing video = new Video_Processing("Vid.mp4");
+		video.readFrames();
 	}
-	
-	
-	public static boolean openVideo() throws IOException{
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
-		// Load the video file into the capture
-		VideoCapture capture;
-		String fileName = readFileName();
-		
-		try{
-			capture = new VideoCapture(fileName);
-			//System.out.println(fileName + " is open");
-			return true;
-		}catch(Exception e){
-			//System.out.println("Error: Openning" + fileName);
-			return false;
-		}
-	}
-	
-		
-	public static boolean checkFileExists(String filePath) throws IOException {
-		File f = new File(filePath);
-		if(f.exists() && !f.isDirectory()) { 
-		    return true;
-		}
-		return false;
-	}	
-	
-	public static String readFileName() throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Please enter file name: \n");
-        String fileName = br.readLine();
-		//System.out.println("FileName: " + fileName);
-		return fileName;
-	}
-	
-	public static int readFrames(String pFileName){
-	    FrameGrabber grabber = new OpenCVFrameGrabber(pFileName);
-	    int frameCounter = 0;
-	    if (grabber == null)
-	    {
-	        System.out.println("!!! Failed OpenCVFrameGrabber");
-	        return frameCounter;
-	    }
-
-	    cvNamedWindow("video_demo", CV_WINDOW_AUTOSIZE);
-	    return frameCounter;
-	}
-	
-	
 }
