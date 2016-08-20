@@ -23,6 +23,7 @@ import static com.googlecode.javacv.cpp.opencv_imgproc.*;
 import static com.googlecode.javacv.cpp.opencv_calib3d.*;
 import static com.googlecode.javacv.cpp.opencv_objdetect.*;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,6 +45,12 @@ public class Open_CV {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Video_Processing video = new Video_Processing("Vid.mp4");
-		video.readFrames();
+		ArrayList<Mat> frames = video.readFrames();
+		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
+		
+		
+		video.printImage(frames.get(1000));
+		video.printImage(HSVframes.get(1000));
+		System.out.println("Exit");
 	}
 }
