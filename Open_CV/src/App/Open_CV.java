@@ -40,17 +40,20 @@ import com.googlecode.javacv.cpp.opencv_core.*;
 
 public class Open_CV {
 	
-	public static String VIDEO_PATH = "C:/Users/jeanc/Documents/Eclipse_Projects/OpenCV/";
+	public static String VIDEO_PATH = "C:/Users/Andres/git/Soccer_Software_Assurance/Open_CV";
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Video_Processing video = new Video_Processing("Vid.mp4");
+		/*Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
 		
 		
 		video.printImage(frames.get(1000));
 		video.printImage(HSVframes.get(1000));
-		System.out.println("Exit");
+		System.out.println("Exit");*/
+		Video_Processing video = new Video_Processing("Vid.mp4");
+		boolean opn = video.openVideo();
+		System.out.println(opn);
 	}
 }

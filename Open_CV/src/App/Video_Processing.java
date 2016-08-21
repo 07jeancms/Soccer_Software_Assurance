@@ -92,7 +92,8 @@ public class Video_Processing {
 		
 		// Load the video file into the capture
 		VideoCapture videoCap = new VideoCapture(videoName);
-
+		
+		
 	    double amountOfFrames = videoCap.get(CV_CAP_PROP_FRAME_COUNT); //get the frame count
 	    
 	    ArrayList<Mat> frames = new ArrayList<>();
