@@ -48,21 +48,20 @@ public class Open_CV {
 		
 		//===========================JC TEST===========================================================================
 		
-		Video_Processing video = new Video_Processing("Vid.mp4");
+		Video_Processing video = new Video_Processing("VidTest.mp4");
 		boolean opn = video.videoIsOpen();
 		System.out.println(opn);
 		
-		int frameNumber = 1000;
+		int frameNumber = 1;
 		
 		ArrayList<Mat> frames = video.readFrames();
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
+		ArrayList<Mat> h = video.getHlayer(HSVframes);
 		
 		video.printImage("RGB", frames.get(frameNumber));
-		video.printImage("HSV", HSVframes.get(frameNumber));
-		
-		// Get V from HSV
-		ArrayList<Mat> h = video.getHlayer(HSVframes);
+		video.printImage("HSV", HSVframes.get(frameNumber));	
 		video.printImage("H", h.get(frameNumber));
+		
 		
 		System.out.println("Exit");
 		

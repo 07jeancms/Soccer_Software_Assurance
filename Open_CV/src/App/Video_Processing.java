@@ -182,7 +182,7 @@ public class Video_Processing {
 			
 			Mat currentMatValue = pHSVarrayList.get(actualMat);
 			
-			// Get V from HSV
+			// Get H from HSV
 			ArrayList<Mat> list = new ArrayList<Mat>();
 			Core.split(currentMatValue, list);
 			Mat vMat = null;
