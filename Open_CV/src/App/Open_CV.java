@@ -44,13 +44,28 @@ public class Open_CV {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		
+		
+		//===========================JC TEST===========================================================================
+		
 		Video_Processing video = new Video_Processing("Vid.mp4");
+		boolean opn = video.videoIsOpen();
+		System.out.println(opn);
+		
+		int frameNumber = 1000;
+		
 		ArrayList<Mat> frames = video.readFrames();
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
 		
+		video.printImage("RGB", frames.get(frameNumber));
+		video.printImage("HSV", HSVframes.get(frameNumber));
 		
-		video.printImage(frames.get(1000));
-		video.printImage(HSVframes.get(1000));
+		// Get V from HSV
+		ArrayList<Mat> h = video.getHlayer(HSVframes);
+		video.printImage("H", h.get(frameNumber));
+		
 		System.out.println("Exit");
+		
+		//===========================END JC TEST===========================================================================
 	}
 }
