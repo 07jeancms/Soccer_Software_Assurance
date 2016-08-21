@@ -92,26 +92,6 @@ public class Video_Processing {
 		
 		//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-<<<<<<< HEAD
-		// Load the video file into the capture
-		VideoCapture videoCap = new VideoCapture(videoName);
-		
-		
-	    double amountOfFrames = videoCap.get(CV_CAP_PROP_FRAME_COUNT); //get the frame count
-	    
-	    ArrayList<Mat> frames = new ArrayList<>();
-	   
-	    for(int actualFrame = 0; actualFrame < amountOfFrames; actualFrame++){
-	    	Mat frame = new Mat();
-	    	videoCap.read(frame);
-	        if (frame.empty()) 
-	        	break;
-	        frames.add(frame);
-	     }
-	    
-	    System.out.println("Amount of frames: " + frames.size());	
-	    return frames;
-=======
 		if(videoIsOpen()){
 			// Load the video file into the capture
 			VideoCapture videoCap = new VideoCapture(videoName);
@@ -132,7 +112,6 @@ public class Video_Processing {
 		    return frames;
 		}
 		return null;
->>>>>>> origin
 	}
 	
 	//======================================================================
