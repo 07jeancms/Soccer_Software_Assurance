@@ -40,10 +40,13 @@ import com.googlecode.javacv.cpp.opencv_core.*;
 
 public class Open_CV {
 	
-	public static String VIDEO_PATH = "C:/Users/jeanc/Documents/Eclipse_Projects/OpenCV/";
+	public static String VIDEO_PATH = "C:/Users/Andres/git/Soccer_Software_Assurance/Open_CV";
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
+		/*Video_Processing video = new Video_Processing("Vid.mp4");
+=======
 		
 		
 		//===========================JC TEST===========================================================================
@@ -54,6 +57,7 @@ public class Open_CV {
 		
 		int frameNumber = 1000;
 		
+>>>>>>> origin
 		ArrayList<Mat> frames = video.readFrames();
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
 		
@@ -64,8 +68,17 @@ public class Open_CV {
 		ArrayList<Mat> h = video.getHlayer(HSVframes);
 		video.printImage("H", h.get(frameNumber));
 		
+<<<<<<< HEAD
+		video.printImage(frames.get(1000));
+		video.printImage(HSVframes.get(1000));
+		System.out.println("Exit");*/
+		Video_Processing video = new Video_Processing("Vid.mp4");
+		boolean opn = video.openVideo();
+		System.out.println(opn);
+=======
 		System.out.println("Exit");
 		
 		//===========================END JC TEST===========================================================================
+>>>>>>> origin
 	}
 }
