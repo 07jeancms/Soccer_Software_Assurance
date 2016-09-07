@@ -8,7 +8,7 @@ public class MathLabFunctions {
     public MathLabFunctions(double[] pXarray, double[] pYarray) {
         this.xArray=pXarray;
         this.yArray=pYarray;
-        numberOfData=pXarray.length; //número de datos
+        numberOfData=pXarray.length; //nÃºmero de datos
     }
     
     public double correlation(){
