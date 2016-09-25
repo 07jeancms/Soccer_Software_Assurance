@@ -1,0 +1,1 @@
+http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/mars1
