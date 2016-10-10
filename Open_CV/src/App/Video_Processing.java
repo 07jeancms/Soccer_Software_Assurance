@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
@@ -193,19 +194,29 @@ public class Video_Processing {
 			}
 			else
 			{
-				System.out.println("Heyyyyyyy");
+				System.out.println("ERROR");
 				throw new RuntimeException("Image does not split to 3 channels!");
 			}
 		}
 		return hArrayList;
 	}
 	
-	
-	
-	
-	
-	
-	
+	//======================================================================
+
+	/*
+	 * Here we're going to find the soccer field
+	 * Parameters: A mat matrix from H layer
+	 */
+	public Mat getSoccerField(Mat pHmat){
+		int lowest_green_color = 127;
+		int highest_green_color = 255;
+		Mat destImage = new Mat();
+		Imgproc.threshold(pHmat, destImage, lowest_green_color, highest_green_color, Imgproc.THRESH_TOZERO);
+		return destImage;
+	}
 	
 	
 }
+
+
+
