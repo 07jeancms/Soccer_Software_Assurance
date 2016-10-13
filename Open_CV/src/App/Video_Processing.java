@@ -34,6 +34,7 @@ import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
 
+
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 
@@ -49,6 +50,9 @@ public class Video_Processing {
 	 * Verify if a video isOpen. It's must be under relative path
 	 * 
 	 * Parameter: -------
+	 */
+	/**
+	 * @return
 	 */
 	public boolean videoIsOpen()  {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -75,6 +79,10 @@ public class Video_Processing {
 	 */
 	//======================================================================
 	
+	/**
+	 * @return
+	 * @throws IOException
+	 */
 	public String readFileName() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Please enter file name: \n");
@@ -92,6 +100,11 @@ public class Video_Processing {
 	 * This method doesn't receive parameters because we use a loop to iterate over a video using an OpenCV constant
 	 */
 	
+	
+	
+	/**
+	 * @return
+	 */
 	public ArrayList<Mat> readFrames(){
 		
 		//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -127,6 +140,12 @@ public class Video_Processing {
 	 * Parameters: Mat
 	 * A Mat type (image) to be printed
 	 */
+	
+	
+	/**
+	 * @param pWindowName
+	 * @param pMat
+	 */
 	public void printImage(String pWindowName, Mat pMat){
 	    BufferedImage bufImage = null;
 	    try {
@@ -155,6 +174,12 @@ public class Video_Processing {
 	 * 
 	 * Parameters: ArrayList of mat types to be converted to HSV ArrayList
 	 */
+	
+	
+	/**
+	 * @param pMatArray
+	 * @return
+	 */
 	public ArrayList<Mat> convertToHSV(ArrayList<Mat> pMatArray){
 		if(videoIsOpen()){
 			int pMatArraySize = pMatArray.size();
@@ -178,6 +203,12 @@ public class Video_Processing {
 	 * Get the H layer from HSV Mat
 	 * 
 	 * Parameters: An ArrayList<Mat> Mat images with HSV format
+	 */
+	
+	
+	/**
+	 * @param pHSVarrayList
+	 * @return
 	 */
 	public ArrayList<Mat> getHlayer(ArrayList<Mat> pHSVarrayList){
 		int amountOfMats = pHSVarrayList.size();
@@ -206,6 +237,10 @@ public class Video_Processing {
 	
 	//======================================================================
 	
+	/**
+	 * @param pMat
+	 * @return
+	 */
 	public Mat getHfromHSV(Mat pMat){
 		Mat hsv = new Mat();
 		Mat actualMatElement = pMat;
@@ -231,6 +266,12 @@ public class Video_Processing {
 	 * Parameters: A mat matrix from H layer
 	 * Return: Mat
 	 */
+	
+	
+	/**
+	 * @param pHmat
+	 * @return
+	 */
 	public Mat getSoccerField(Mat pHmat){
 		int GREEN_COLOR = 60;
 		int SENSITIVITY = 23;
@@ -253,6 +294,14 @@ public class Video_Processing {
 	 *Parameters: Mat image, min range, max range
 	 *Return:  
 	*/
+	
+	
+	/**
+	 * @param pHmat
+	 * @param pFirstValue
+	 * @param pSecondValue
+	 * @return
+	 */
 	public Mat normalize (Mat pHmat, int pFirstValue, int pSecondValue){
 		Mat clone = pHmat.clone();
 		Core.normalize(clone, clone, pFirstValue, pSecondValue, Core.NORM_MINMAX);
@@ -263,53 +312,54 @@ public class Video_Processing {
 	//======================================================================
 	
 
-	  public Mat stdfilt(ArrayList<Mat> pFrames, int pPosition) {
+	  /**
+	 * @param pFrames
+	 * @param pPosition
+	 * @return
+	 */
+	public Mat stdfilt(ArrayList<Mat> pFrames, int pPosition) {
 		  
 		  Mat hLayer = getHfromHSV(pFrames.get(pPosition));
 		  hLayer = normalize(hLayer, 0 , 255);
 		  hLayer.convertTo(hLayer, CvType.CV_32F);
 	    
-		  //Standard Dsviation
-		  Mat mu = hLayer.clone();
-		  Imgproc.blur(hLayer, mu, new Size(5, 5));
+		  //Standard Deviation
+		  Mat multiply = hLayer.clone();
+		  //Smooths an image using the kernel
+		  Imgproc.blur(hLayer, multiply, new Size(5, 5));
 	    
 		  Mat hLayerClone = hLayer.clone();
 		  Core.multiply(hLayer, hLayer, hLayerClone);
 	    
-		  Mat mu2 = hLayerClone.clone();
-		  Imgproc.blur(hLayerClone, mu2, new Size(5, 5));
+		  Mat secondMultiply = hLayerClone.clone();
+		  //Smooths an image using the kernel
+		  Imgproc.blur(hLayerClone, secondMultiply, new Size(5, 5));
 	    
-		  Mat mu22 = mu.clone();
-		  Core.multiply(mu, mu, mu22);
+		  Mat mu22 = multiply.clone();
+		  //Calculates the per-element scaled product of two arrays.
+		  Core.multiply(multiply, multiply, mu22);
 	    
-		  Mat sub = mu2.clone();
-		  Core.subtract(mu2, mu22, sub);
+		  Mat substract = secondMultiply.clone();
+		  //Calculates the per-element difference between two arrays or array and a scalar.
+		  Core.subtract(secondMultiply, mu22, substract);
 	    
 		  //get local standard deviation
-		  Mat std = sub.clone();
-		  Core.sqrt(sub, std);
+		  Mat standard = substract.clone();
+		  //Normal formula
+		  Core.sqrt(substract, standard);
 	    
 		  //get local variance
-		  Mat variance = std.clone();
-		  Core.multiply(std, std, variance);
+		  Mat localVariance = standard.clone();
+		//Calculates the per-element scaled product of two arrays.
+		  Core.multiply(standard, standard, localVariance);
 
-		  return variance;
+		  return localVariance;
 	  }
-	  
+	
+	//======================================================================
 
-	  public double graythresh(Mat image) {
-	    Mat matClone = image.clone();
-	    matClone.convertTo(matClone, CvType.CV_8UC1);
-	    double umbral = Imgproc.threshold(matClone, matClone, 0, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
-	    return umbral;
-	  }
-	  
-	  public Mat im2bw(Mat image) {
-	    double umbral = graythresh(image);// get optimum threshold.
-	    Mat clone = image.clone();
-	    Imgproc.threshold(clone, clone, umbral, 255, Imgproc.THRESH_BINARY);
-	    return clone;
-	  }
+	
+	
 	
 }
 
