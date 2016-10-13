@@ -38,6 +38,7 @@ import org.opencv.imgproc.Imgproc;
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 
+
 public class Video_Processing {
 	
 	private String videoName;
@@ -45,15 +46,17 @@ public class Video_Processing {
 	public Video_Processing(String pVideoName){
 		videoName = pVideoName;
 	}
-	
-	/*
-	 * Verify if a video isOpen. It's must be under relative path
-	 * 
-	 * Parameter: -------
-	 */
 	/**
-	 * @return
-	 */
+  	* Returns a Boolean object that indicates whether the video is habierto or not.
+	*This method doesn't receive parameters 
+	* Verify if a video isOpen. It's must be under relative path
+  	* The videoName indicua the name of the video that will be charged for processing
+  	* <P>
+	* The method always returns a value, whether the video is open or not
+	*
+  	* @return The value obtained if the video is open or not
+  	* @see Boolean
+  	* /
 	public boolean videoIsOpen()  {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		boolean isOpen = false;
@@ -72,17 +75,22 @@ public class Video_Processing {
 		
 	}
 	
-	/*
-	 * Enter a video file name using console
-	 * 
-	 * Parameters: -------
-	 */
 	//======================================================================
 	
 	/**
 	 * @return
 	 * @throws IOException
 	 */
+	/ **
+  	* Returns a String object that indicates the name of a file.
+        *This method doesn't receive parameters 
+  	* Enter a video file name using console
+  	* <P>
+	* The method returns a value of the name of the string that was enter by the user 	
+	*
+  	* @return The value obtained of the name of the video
+  	* @see String
+  	* /
 	public String readFileName() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Please enter file name: \n");
@@ -93,18 +101,18 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	/*
-	 * Decompose a video on frames
-	 * 
-	 * Parameters: 
-	 * This method doesn't receive parameters because we use a loop to iterate over a video using an OpenCV constant
-	 */
+
+	/ **
+ 	* Decompose a video on frames
+  	* Returns a ArrayList<Mat> object that indicates a serie of frames in the video.
+	*This method doesn't receive parameters
+  	* <P>
+	* The method returns a values of the frames in an ArrayList<Mat>  	
+	*
+  	* @return The value obtained of the ArrayList<Mat> of the video
+  	* @see ArrayList<Mat> 
+  	* /
 	
-	
-	
-	/**
-	 * @return
-	 */
 	public ArrayList<Mat> readFrames(){
 		
 		//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -133,19 +141,22 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	
-	/*
-	 * Print a Mat image
-	 * 
-	 * Parameters: Mat
-	 * A Mat type (image) to be printed
-	 */
-	
-	
-	/**
-	 * @param pWindowName
-	 * @param pMat
-	 */
+
+	/ **
+ 	* Print a Mat image
+  	* This method doesn't have a return, is a void method 
+	* Print a sets of bytes in a frame
+  	* <P>
+	* The method doesn't have  returns a value  	
+	*
+	* @param pWindowName is a string value for de new JFrame
+	* @param pMat is a Mat value for the new image
+	*
+  	* 
+  	* @see Void
+  	* /
+
+
 	public void printImage(String pWindowName, Mat pMat){
 	    BufferedImage bufImage = null;
 	    try {
@@ -169,17 +180,21 @@ public class Video_Processing {
 	//======================================================================
 	
 	
-	/*
-	 * Convert an RGB image to HSV image
-	 * 
-	 * Parameters: ArrayList of mat types to be converted to HSV ArrayList
-	 */
 	
-	
-	/**
-	 * @param pMatArray
-	 * @return
-	 */
+	/ **
+ 	* Convert a RGB image to HSV image
+  	* This method return a ArrayList<Mat> that represent a convert HSV 
+	* Takes a RGB image and convert it into a HSV image
+  	* <P>
+	* The method return an ArrayList<Mat>   	
+	*
+	* @param pMatArray is a ArrayList<Mat> value used for convert a RGB image into a HSV
+	* 
+	*
+  	* @return a ArrayList<Mat> representing the new HSV image
+  	* @see ArrayList<Mat>
+  	* /
+
 	public ArrayList<Mat> convertToHSV(ArrayList<Mat> pMatArray){
 		if(videoIsOpen()){
 			int pMatArraySize = pMatArray.size();
@@ -198,18 +213,21 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	
-	/*
-	 * Get the H layer from HSV Mat
+	 / **
+  	 * Get the H layer from HSV Mat
+  	 * This method return a ArrayList<Mat> that represent a layer takes from HSV Mat
+	 * Takes a layer from HSV Mat
+  	 * <P>
+	 * The method return an ArrayList<Mat>   	
+	 *
+	 * @param pHSVarrayList is a ArrayList<Mat> value, is the HSV 
 	 * 
-	 * Parameters: An ArrayList<Mat> Mat images with HSV format
-	 */
-	
-	
-	/**
-	 * @param pHSVarrayList
-	 * @return
-	 */
+	 *
+  	 * @return a ArrayList<Mat> representing the new H layer 
+  	 * @see ArrayList<Mat>
+  	 * /
+
+
 	public ArrayList<Mat> getHlayer(ArrayList<Mat> pHSVarrayList){
 		int amountOfMats = pHSVarrayList.size();
 		ArrayList<Mat> hArrayList = new ArrayList<>();
@@ -237,10 +255,20 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	/**
-	 * @param pMat
-	 * @return
-	 */
+	/ **
+  	 * Get the H from HSV Mat
+  	 * This method return a Mat  from HSV Mat
+	 * 
+  	 * <P>
+	 * The method return a Mat   	
+	 *
+	 * @param pMat is a Mat value, is the HSV 
+	 * 
+	 *
+  	 * @return a Mat representing the new H 
+  	 * @see Mat
+  	 * /
+
 	public Mat getHfromHSV(Mat pMat){
 		Mat hsv = new Mat();
 		Mat actualMatElement = pMat;
@@ -261,17 +289,21 @@ public class Video_Processing {
 		}
 	}
 
-	/*
-	 * Here we're going to find the soccer field
-	 * Parameters: A mat matrix from H layer
-	 * Return: Mat
-	 */
-	
-	
-	/**
-	 * @param pHmat
-	 * @return
-	 */
+
+	 / **
+  	  * Here we're going to find the soccer field
+  	  * This method return a Mat  from HSV Mat
+	  * 
+  	  * <P>
+	  * The method return a Mat, represent a soccer field 	
+	  *
+	  * @param pHmat is a Mat value,  A mat matrix from H layer
+	  * 
+	  *
+  	  * @return a Mat representing the new soccer field
+  	  * @see Mat
+  	  * /
+
 	public Mat getSoccerField(Mat pHmat){
 		int GREEN_COLOR = 60;
 		int SENSITIVITY = 23;
@@ -289,19 +321,23 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	/*
-	 *This function is to normalize a Mat image between 2 values
-	 *Parameters: Mat image, min range, max range
-	 *Return:  
-	*/
 	
-	
-	/**
-	 * @param pHmat
-	 * @param pFirstValue
-	 * @param pSecondValue
-	 * @return
-	 */
+
+	  / **
+  	  * This function is to normalize a Mat image between 2 values
+  	  * This method return a normalize clon of a mat image
+	  * 
+  	  * <P>
+	  * The method return a Mat, represent a normalize value
+	  *
+	  * @param pHmat is a Mat value, a value to clone
+	  * @param pFirstValue, is a int value, is a parametrer of normalize funtion
+	  * @param pSecondValue, is a int value, is a parametrer of normalize funtion
+	  *
+  	  * @return a Mat representing the new Mat
+  	  * @see Mat
+  	  * /
+
 	public Mat normalize (Mat pHmat, int pFirstValue, int pSecondValue){
 		Mat clone = pHmat.clone();
 		Core.normalize(clone, clone, pFirstValue, pSecondValue, Core.NORM_MINMAX);
@@ -317,6 +353,20 @@ public class Video_Processing {
 	 * @param pPosition
 	 * @return
 	 */
+
+	  / **
+  	  * This function is to normalize a Mat image between 2 values
+  	  * This method return a normalize clon of a mat image
+	  * 
+  	  * <P>
+	  * The method return a Mat, represent a normalize value
+	  *
+	  * @param pFrames, is a ArrayList<Mat> value, is a parametret of getHfromHSV
+	  * @param pPosition, is a int value, is a parametret of getHfromHSV
+	  *
+  	  * @return a Mat representing the local variance
+  	  * @see Mat
+  	  * /
 	public Mat stdfilt(ArrayList<Mat> pFrames, int pPosition) {
 		  
 		  Mat hLayer = getHfromHSV(pFrames.get(pPosition));
