@@ -33,7 +33,7 @@ import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
-
+import org.opencv.videoio.VideoWriter;
 
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -41,6 +41,7 @@ import com.googlecode.javacv.OpenCVFrameGrabber;
 public class Video_Processing {
 	
 	private String videoName;
+	private VideoWriter videoWriter;
 
 	public Video_Processing(String pVideoName){
 		videoName = pVideoName;
@@ -317,6 +318,7 @@ public class Video_Processing {
 	 * @param pPosition
 	 * @return
 	 */
+	
 	public Mat stdfilt(ArrayList<Mat> pFrames, int pPosition) {
 		  
 		  Mat hLayer = getHfromHSV(pFrames.get(pPosition));
@@ -357,9 +359,13 @@ public class Video_Processing {
 	  }
 	
 	//======================================================================
-
 	
-	
+	public void writeFrame(ArrayList<Mat> pArrayList) {
+		int pArrayListSize = pArrayList.size();
+		for(int actualFrame = 0; actualFrame < pArrayListSize; actualFrame++){
+			videoWriter.write((pArrayList.get(actualFrame)));
+		}
+	}
 	
 }
 
