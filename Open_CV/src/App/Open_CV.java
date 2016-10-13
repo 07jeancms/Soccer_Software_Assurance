@@ -1,44 +1,9 @@
 package App;
 
-import org.opencv.core.*;
-import org.opencv.highgui.Highgui;
-import org.opencv.highgui.VideoCapture;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.video.Video;
-import org.opencv.core.*;
-import org.opencv.highgui.Highgui;
-import org.opencv.highgui.VideoCapture;
-
-import com.googlecode.javacpp.Loader;
-import com.googlecode.javacv.*;
-import com.googlecode.javacv.cpp.*;
-import com.googlecode.javacv.cpp.opencv_core.CvPoint;
-import com.googlecode.javacv.cpp.opencv_core.CvScalar;
-import com.googlecode.javacv.cpp.opencv_core.CvSeq;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
-import com.googlecode.javacv.cpp.opencv_highgui.CvCapture;
-
-import MathLabIntegrator.MathLabFunctions;
-
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_imgproc.*;
-import static com.googlecode.javacv.cpp.opencv_calib3d.*;
-import static com.googlecode.javacv.cpp.opencv_objdetect.*;
-
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static com.googlecode.javacv.cpp.opencv_highgui.*;
-
-import com.googlecode.javacv.cpp.opencv_core.*;
-
+import org.opencv.core.Mat;
 
 public class Open_CV {
 	
