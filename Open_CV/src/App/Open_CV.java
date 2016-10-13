@@ -3,6 +3,8 @@ package App;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.plaf.FontUIResource;
+
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoWriter;
 
@@ -22,26 +24,15 @@ public class Open_CV {
 		ArrayList<Mat> frames = video.readFrames();
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
 		ArrayList<Mat> h = video.getHlayer(HSVframes);
-		
-		video.printImage("RGB", frames.get(frameNumber));
-		video.printImage("HSV", HSVframes.get(frameNumber));	
-		video.printImage("H", h.get(frameNumber));
-		
-		// Soccer Field Detection
-		Mat soccer_field = video.getSoccerField(h.get(frameNumber));
-		video.printImage("Soccer_Field", soccer_field);
+		ArrayList<Mat> stdfiltArray = video.applyStdfilt(frames);
+		video.printImage("Players", stdfiltArray.get(34));
 		
 		
-
-		
-		Mat test = video.stdfilt(frames, frameNumber);
-		video.printImage("Players", test);
-		
-		
-		ArrayList<Mat> blobsPlayer = video.applyStdfilt(frames);
-		VideoWriter playersVideo = video.writeFrames(blobsPlayer);
-		
+		for(int i = 0; i < 60; i++){
+			video.printImage("Test", stdfiltArray.get(i));
+		}
 		
 		System.out.println("Exit");
 	}
+
 }

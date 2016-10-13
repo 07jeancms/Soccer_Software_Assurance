@@ -41,7 +41,7 @@ import com.googlecode.javacv.OpenCVFrameGrabber;
 public class Video_Processing {
 	
 	private String videoName;
-	private VideoWriter videoWriter;
+	private int AMOUNT_OF_FRAMES;
 
 	public Video_Processing(String pVideoName){
 		videoName = pVideoName;
@@ -115,6 +115,7 @@ public class Video_Processing {
 			VideoCapture videoCap = new VideoCapture(videoName);
 
 		    double amountOfFrames = videoCap.get(CV_CAP_PROP_FRAME_COUNT); //get the frame count
+		    AMOUNT_OF_FRAMES = (int)amountOfFrames;
 		    
 		    ArrayList<Mat> frames = new ArrayList<>();
 		   
@@ -362,9 +363,9 @@ public class Video_Processing {
 	
 	public ArrayList<Mat> applyStdfilt(ArrayList<Mat> pArrayList){
 		ArrayList<Mat> stdfiltArray = new ArrayList<>();
-		for(int actualElement = 0; actualElement < pArrayList.size(); actualElement++){
+		for(int actualElement = 0; actualElement < AMOUNT_OF_FRAMES; actualElement++){
 			Mat actualImage = stdfilt(pArrayList, actualElement);
-			stdfiltArray.add(actualElement);
+			stdfiltArray.add(actualImage);
 		}
 		return stdfiltArray;
 	}
@@ -372,13 +373,15 @@ public class Video_Processing {
 	
 	//======================================================================
 	
+	/*
 	public VideoWriter writeFrames(ArrayList<Mat> pArrayList) {
-		int pArrayListSize = pArrayList.size();
-		for(int actualFrame = 0; actualFrame < pArrayListSize; actualFrame++){
+		VideoWriter videoWriter = VideoWriter('output.mp4',, 20.0, (640,480))
+		for(int actualFrame = 0; actualFrame < AMOUNT_OF_FRAMES; actualFrame++){
 			videoWriter.write((pArrayList.get(actualFrame)));
 		}
 		return videoWriter;
 	}
+	*/
 	
 }
 
