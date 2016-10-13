@@ -11,8 +11,7 @@ import App.Video_Processing;
 
 public class Get_H_Layer_Test {
 	
-	@Test
-	// Verify ArrayList with values
+	 
 	public void getHlayerTestEmpty(){
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
@@ -22,7 +21,6 @@ public class Get_H_Layer_Test {
 	}
 	
 
-	@Test
 	public void getHlayerTestSize() {
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
