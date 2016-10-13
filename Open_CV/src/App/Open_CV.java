@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.opencv.core.Mat;
+import org.opencv.videoio.VideoWriter;
 
 public class Open_CV {
 	
@@ -35,6 +36,11 @@ public class Open_CV {
 		
 		Mat test = video.stdfilt(frames, frameNumber);
 		video.printImage("Players", test);
+		
+		
+		ArrayList<Mat> blobsPlayer = video.applyStdfilt(frames);
+		VideoWriter playersVideo = video.writeFrames(blobsPlayer);
+		
 		
 		System.out.println("Exit");
 	}

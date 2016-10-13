@@ -360,11 +360,24 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	public void writeFrame(ArrayList<Mat> pArrayList) {
+	public ArrayList<Mat> applyStdfilt(ArrayList<Mat> pArrayList){
+		ArrayList<Mat> stdfiltArray = new ArrayList<>();
+		for(int actualElement = 0; actualElement < pArrayList.size(); actualElement++){
+			Mat actualImage = stdfilt(pArrayList, actualElement);
+			stdfiltArray.add(actualElement);
+		}
+		return stdfiltArray;
+	}
+	
+	
+	//======================================================================
+	
+	public VideoWriter writeFrames(ArrayList<Mat> pArrayList) {
 		int pArrayListSize = pArrayList.size();
 		for(int actualFrame = 0; actualFrame < pArrayListSize; actualFrame++){
 			videoWriter.write((pArrayList.get(actualFrame)));
 		}
+		return videoWriter;
 	}
 	
 }
