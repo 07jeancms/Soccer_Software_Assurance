@@ -12,7 +12,18 @@ import App.Video_Processing;
 public class Get_H_Layer_Test {
 	
 	@Test
-	// Verify ArrayList with values
+	  / **
+	  * Verify ArrayList with values
+  	  * This function is a test to see if Hlayer is empty
+	  * 
+  	  * <P>
+	  * The method doesn`t have return or parametres
+	  *
+	  *
+  	  *
+  	  * @see Void
+  	  * /
+	 
 	public void getHlayerTestEmpty(){
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
@@ -23,6 +34,17 @@ public class Get_H_Layer_Test {
 	
 
 	@Test
+ 	 / **
+	  * Verify Amount of HSV matrix
+  	  * This function is a test to see the size of the Hlayer
+	  * 
+  	  * <P>
+	  * The method doesn`t have return or parametres
+	  *
+	  *
+  	  *
+  	  * @see Void
+  	  * /
 	public void getHlayerTestSize() {
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
