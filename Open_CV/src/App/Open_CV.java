@@ -61,8 +61,15 @@ public class Open_CV {
 		video.printImage("HSV", HSVframes.get(frameNumber));	
 		video.printImage("H", h.get(frameNumber));
 		
+		// Soccer Field Detection
 		Mat soccer_field = video.getSoccerField(h.get(frameNumber));
 		video.printImage("Soccer_Field", soccer_field);
+		
+		
+
+		
+		Mat test = video.stdfilt(frames, frameNumber);
+		video.printImage("Players", test);
 		
 		System.out.println("Exit");
 	}

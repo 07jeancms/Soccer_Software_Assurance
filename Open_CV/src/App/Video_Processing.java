@@ -19,14 +19,17 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultDesktopManager;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
@@ -202,19 +205,111 @@ public class Video_Processing {
 	}
 	
 	//======================================================================
+	
+	public Mat getHfromHSV(Mat pMat){
+		Mat hsv = new Mat();
+		Mat actualMatElement = pMat;
+	    Imgproc.cvtColor(actualMatElement, hsv, Imgproc.COLOR_RGB2HSV);	
+		// Get H from HSV
+		ArrayList<Mat> list = new ArrayList<Mat>();
+		Core.split(actualMatElement, list);
+		Mat vMat = null;
+		if (list.size() == 3)
+		{
+			vMat = list.get(0);
+			return vMat;
+		}
+		else
+		{
+			System.out.println("ERROR");
+			throw new RuntimeException("Image does not split to 3 channels!");
+		}
+	}
 
 	/*
 	 * Here we're going to find the soccer field
 	 * Parameters: A mat matrix from H layer
+	 * Return: Mat
 	 */
 	public Mat getSoccerField(Mat pHmat){
-		int lowest_green_color = 127;
-		int highest_green_color = 255;
-		Mat destImage = new Mat();
-		Imgproc.threshold(pHmat, destImage, lowest_green_color, highest_green_color, Imgproc.THRESH_TOZERO);
-		return destImage;
+		int GREEN_COLOR = 60;
+		int SENSITIVITY = 23;
+		
+		
+		Scalar alphaMin = new Scalar(GREEN_COLOR - SENSITIVITY, 100, 50);
+		Scalar alphaMax = new Scalar(GREEN_COLOR + SENSITIVITY, 255, 255);
+		
+		Mat destMat = new Mat();
+		//Imgproc.threshold(pHmat, destMat, 100, 255, Imgproc.THRESH_TOZERO);
+		Core.inRange(pHmat, alphaMin, alphaMax, destMat);
+		return destMat;
 	}
 	
+	
+	//======================================================================
+	
+	/*
+	 *This function is to normalize a Mat image between 2 values
+	 *Parameters: Mat image, min range, max range
+	 *Return:  
+	*/
+	public Mat normalize (Mat pHmat, int pFirstValue, int pSecondValue){
+		Mat clone = pHmat.clone();
+		Core.normalize(clone, clone, pFirstValue, pSecondValue, Core.NORM_MINMAX);
+		return clone;
+	}
+	
+	
+	//======================================================================
+	
+
+	  public Mat stdfilt(ArrayList<Mat> pFrames, int pPosition) {
+		  
+		  Mat hLayer = getHfromHSV(pFrames.get(pPosition));
+		  hLayer = normalize(hLayer, 0 , 255);
+		  hLayer.convertTo(hLayer, CvType.CV_32F);
+	    
+		  //Standard Dsviation
+		  Mat mu = hLayer.clone();
+		  Imgproc.blur(hLayer, mu, new Size(5, 5));
+	    
+		  Mat hLayerClone = hLayer.clone();
+		  Core.multiply(hLayer, hLayer, hLayerClone);
+	    
+		  Mat mu2 = hLayerClone.clone();
+		  Imgproc.blur(hLayerClone, mu2, new Size(5, 5));
+	    
+		  Mat mu22 = mu.clone();
+		  Core.multiply(mu, mu, mu22);
+	    
+		  Mat sub = mu2.clone();
+		  Core.subtract(mu2, mu22, sub);
+	    
+		  //get local standard deviation
+		  Mat std = sub.clone();
+		  Core.sqrt(sub, std);
+	    
+		  //get local variance
+		  Mat variance = std.clone();
+		  Core.multiply(std, std, variance);
+
+		  return variance;
+	  }
+	  
+
+	  public double graythresh(Mat image) {
+	    Mat matClone = image.clone();
+	    matClone.convertTo(matClone, CvType.CV_8UC1);
+	    double umbral = Imgproc.threshold(matClone, matClone, 0, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
+	    return umbral;
+	  }
+	  
+	  public Mat im2bw(Mat image) {
+	    double umbral = graythresh(image);// get optimum threshold.
+	    Mat clone = image.clone();
+	    Imgproc.threshold(clone, clone, umbral, 255, Imgproc.THRESH_BINARY);
+	    return clone;
+	  }
 	
 }
 
