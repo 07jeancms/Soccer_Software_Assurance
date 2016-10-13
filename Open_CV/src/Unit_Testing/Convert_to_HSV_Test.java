@@ -13,22 +13,7 @@ public class Convert_to_HSV_Test {
 	
 
 	 
-	@Test
-	
-
-	
-	  / **
-	  * Verify ArrayList with values
-  	  * This function is a test to see if the convertion of HSV is empty
-	  * 
-  	  * <P>
-	  * The method doesn`t have return or parametres
-	  *
-	  *
-  	  *
-  	  * @see Void
-  	  * /
-	
+		
 	public void convertToHSVtestEmpty(){
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
@@ -36,20 +21,6 @@ public class Convert_to_HSV_Test {
 		assertFalse(hsvArrayList.isEmpty());
 	}
 
-	@Test
-	 
-	 / **
-	  * Verify Amount of HSV matrix
-  	  * This function is a test to see the size of the convertion of HSV
-  
-	  * 
-  	  * <P>
-	  * The method doesn`t have return or parametres
-	  *
-	  *
-  	  *
-  	  * @see Void
-  	  * /
 	public void convertToHSVtestSize() {
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
