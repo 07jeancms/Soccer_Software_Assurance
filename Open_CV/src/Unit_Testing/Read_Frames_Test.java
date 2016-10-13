@@ -12,16 +12,12 @@ import App.Video_Processing;
 
 public class Read_Frames_Test {
 
-	@Test
-	// Verify ArrayList with values
 	public void readFramesEmpty(){
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
 		assertFalse(frames.isEmpty());
 	}
 	
-	@Test
-	// Verify Amount of frames
 	public void readFramesTestSize() {
 		Video_Processing video = new Video_Processing("Vid.mp4");
 		ArrayList<Mat> frames = video.readFrames();
