@@ -3,14 +3,12 @@ package App;
 import java.io.IOException;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
+
 import javax.swing.plaf.FontUIResource;
 
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoWriter;
-=======
 import org.opencv.core.Mat;
->>>>>>> refs/remotes/origin/master
 
 public class Open_CV {
 	
@@ -31,6 +29,9 @@ public class Open_CV {
 		ArrayList<Mat> stdfiltArray = video.applyStdfilt(frames);
 		//video.printImage("Players", stdfiltArray.get(34));
 		
+		for(int i = 0; i<stdfiltArray.size(); i++){
+			video.printImage("OpenCV", stdfiltArray.get(i));
+		}
 		
 		System.out.println("Exit");
 	}
