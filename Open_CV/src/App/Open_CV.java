@@ -27,7 +27,6 @@ public class Open_CV {
 		ArrayList<Mat> stdfiltArray = video.applyStdfilt(frames);
 		//video.printImage("Players", stdfiltArray.get(34));
 		
-		video.writeFrames(stdfiltArray);
 		
 		System.out.println("Exit");
 	}
