@@ -392,6 +392,8 @@ public class Video_Processing {
 		videoWriter=new VideoWriter(outputFile,fourcc,videoCapture.get(Videoio.CAP_PROP_FPS),frameSize,true);
 		*/
 		
+		// Ask for this
+		
 		try {
 			String fileName = "C:/myVideo.avi";
 			//int fcc = CV_FOURCC('D', 'I', 'V', '3');
