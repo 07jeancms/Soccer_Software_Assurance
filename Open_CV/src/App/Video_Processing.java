@@ -34,7 +34,10 @@ import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoWriter;
+<<<<<<< HEAD
 import org.opencv.videoio.Videoio;
+=======
+>>>>>>> refs/remotes/origin/master
 
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -42,10 +45,15 @@ import com.googlecode.javacv.OpenCVFrameGrabber;
 public class Video_Processing {
 	
 	private String videoName;
+<<<<<<< HEAD
 	private int AMOUNT_OF_FRAMES;
 	private VideoCapture videoCapture;
 	private VideoWriter videoWriter;
 	final String outputFile="../output/writer-java.avi	";
+=======
+	private VideoWriter videoWriter;
+
+>>>>>>> refs/remotes/origin/master
 	public Video_Processing(String pVideoName){
 		videoName = pVideoName;
 	}
@@ -364,6 +372,7 @@ public class Video_Processing {
 	  }
 	
 	//======================================================================
+<<<<<<< HEAD
 	
 	public ArrayList<Mat> applyStdfilt(ArrayList<Mat> pArrayList){
 		ArrayList<Mat> stdfiltArray = new ArrayList<>();
@@ -376,6 +385,15 @@ public class Video_Processing {
 	
 	
 	//======================================================================
+=======
+	
+	public void writeFrame(ArrayList<Mat> pArrayList) {
+		int pArrayListSize = pArrayList.size();
+		for(int actualFrame = 0; actualFrame < pArrayListSize; actualFrame++){
+			videoWriter.write((pArrayList.get(actualFrame)));
+		}
+	}
+>>>>>>> refs/remotes/origin/master
 	
 
 	public void writeFrames(ArrayList<Mat> pArrayList) {

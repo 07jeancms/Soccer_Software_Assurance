@@ -3,10 +3,14 @@ package App;
 import java.io.IOException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import javax.swing.plaf.FontUIResource;
 
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoWriter;
+=======
+import org.opencv.core.Mat;
+>>>>>>> refs/remotes/origin/master
 
 public class Open_CV {
 	
