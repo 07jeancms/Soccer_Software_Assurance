@@ -34,6 +34,7 @@ import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoWriter;
+import org.opencv.videoio.Videoio;
 
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -42,7 +43,9 @@ public class Video_Processing {
 	
 	private String videoName;
 	private int AMOUNT_OF_FRAMES;
-
+	private VideoCapture videoCapture;
+	private VideoWriter videoWriter;
+	final String outputFile="../output/writer-java.avi	";
 	public Video_Processing(String pVideoName){
 		videoName = pVideoName;
 	}
@@ -113,6 +116,7 @@ public class Video_Processing {
 		if(videoIsOpen()){
 			// Load the video file into the capture
 			VideoCapture videoCap = new VideoCapture(videoName);
+			videoCapture = videoCap;
 
 		    double amountOfFrames = videoCap.get(CV_CAP_PROP_FRAME_COUNT); //get the frame count
 		    AMOUNT_OF_FRAMES = (int)amountOfFrames;
@@ -373,16 +377,31 @@ public class Video_Processing {
 	
 	//======================================================================
 	
-	/*
-	public VideoWriter writeFrames(ArrayList<Mat> pArrayList) {
-		VideoWriter videoWriter = VideoWriter('output.mp4',, 20.0, (640,480))
-		for(int actualFrame = 0; actualFrame < AMOUNT_OF_FRAMES; actualFrame++){
-			videoWriter.write((pArrayList.get(actualFrame)));
+
+	public void writeFrames(ArrayList<Mat> pArrayList) {
+		/*
+		final Size frameSize=new Size((int)videoCapture.get(Videoio.CAP_PROP_FRAME_WIDTH),(int)videoCapture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+		int fourcc = VideoWriter.fourcc('M', 'J', 'P', 'G');
+		videoWriter=new VideoWriter(outputFile,fourcc,videoCapture.get(Videoio.CAP_PROP_FPS),frameSize,true);
+		*/
+		
+		try {
+			String fileName = "C:/myVideo.avi";
+			//int fcc = CV_FOURCC('D', 'I', 'V', '3');
+			final int fourCC= new VideoWriter().fourcc('D', 'I','V', '3');
+			int fps = 20;
+			Size frameSize=new Size((int)videoCapture.get(Videoio.CAP_PROP_FRAME_WIDTH),(int)videoCapture.get(Videoio.CAP_PROP_FRAME_HEIGHT));
+			videoWriter = new VideoWriter(fileName, fourCC, fps, frameSize);
+			if(!videoWriter.isOpened()){
+				System.out.println("ERROR OPENING FILE TO WRITE");
+			}
+			for(int i = 0; i < pArrayList.size(); i++){
+				videoWriter.write(pArrayList.get(i));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		return videoWriter;
 	}
-	*/
-	
 }
 
 

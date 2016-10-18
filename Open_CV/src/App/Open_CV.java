@@ -25,12 +25,9 @@ public class Open_CV {
 		ArrayList<Mat> HSVframes = video.convertToHSV(frames);
 		ArrayList<Mat> h = video.getHlayer(HSVframes);
 		ArrayList<Mat> stdfiltArray = video.applyStdfilt(frames);
-		video.printImage("Players", stdfiltArray.get(34));
+		//video.printImage("Players", stdfiltArray.get(34));
 		
-		
-		for(int i = 0; i < 60; i++){
-			video.printImage("Test", stdfiltArray.get(i));
-		}
+		video.writeFrames(stdfiltArray);
 		
 		System.out.println("Exit");
 	}
